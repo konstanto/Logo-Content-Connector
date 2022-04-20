@@ -3,7 +3,7 @@ var express = require('express');
 
 var app = express();
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 app.get('/content/:domain/download-url', function(req, res) {
     const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}` };
