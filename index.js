@@ -5,6 +5,14 @@ var app = express();
 
 var PORT = process.env.PORT || 3000;
 
+app.post('/oauth/token', function(req, res) {
+    const response = {
+        access_token: "no-auth"
+    }
+
+    res.send(response);
+});
+
 app.get('/content/:domain/download-url', function(req, res) {
     const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}` };
     res.send(url);
