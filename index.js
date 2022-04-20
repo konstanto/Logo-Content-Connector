@@ -1,5 +1,5 @@
-const https = require('https');
-var express = require('express');
+import express from 'express';
+import fetch from 'node-fetch';
 
 var app = express();
 
@@ -18,19 +18,29 @@ app.get('/content/:domain/download-url', function(req, res) {
     res.send(url);
 });
 
-app.get('/content/', function(req, res) {
+app.get('/content/', async function(req, res) {
     const domain = req.query.search.indexOf(".com") > 0 ? req.query.search : `${req.query.search}.com`
 
     const response = {
         contentCount: 1,
         offset: 0,
-        content: [{
-            id: domain,
-            mimeType: "image/png",
-            previewUrl: `https://logo.clearbit.com/${domain}`,
-            name: `${domain} - from clearbit`,
-            tags: domain
-        }]
+        content: []
+    }
+
+    try {
+        const test = await fetch(`https://logo.clearbit.com/${domain}`);
+        if (test.status === 200) {
+            response.content.push({
+                id: domain,
+                mimeType: "image/png",
+                previewUrl: `https://logo.clearbit.com/${domain}`,
+                name: `${domain} - from clearbit`,
+                tags: domain
+            })
+        }
+
+    } catch (error) {
+
     }
 
     res.send(response);
