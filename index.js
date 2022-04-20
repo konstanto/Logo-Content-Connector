@@ -14,7 +14,7 @@ app.post('/oauth/token', function(req, res) {
 });
 
 app.get('/content/:domain/download-url', function(req, res) {
-    const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}` };
+    const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}?size=800` };
     res.send(url);
 });
 
