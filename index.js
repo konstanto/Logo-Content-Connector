@@ -19,13 +19,17 @@ app.get('/content/:domain/download-url', function(req, res) {
 });
 
 app.get('/content/', async function(req, res) {
-    const domain = req.query.search.indexOf(".com") > 0 ? req.query.search : `${req.query.search}.com`
-
     const response = {
         contentCount: 0,
         offset: 0,
         content: []
     }
+
+    if (req.query.pageNumber > 1) {
+        res.send(response)
+    }
+
+    const domain = req.query.search.indexOf(".com") > 0 ? req.query.search : `${req.query.search}.com`
 
     try {
         const test = await fetch(`https://logo.clearbit.com/${domain}`);
