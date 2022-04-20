@@ -22,7 +22,7 @@ app.get('/content/', async function(req, res) {
     const domain = req.query.search.indexOf(".com") > 0 ? req.query.search : `${req.query.search}.com`
 
     const response = {
-        contentCount: 1,
+        contentCount: 0,
         offset: 0,
         content: []
     }
@@ -37,6 +37,7 @@ app.get('/content/', async function(req, res) {
                 name: `${domain} - from clearbit`,
                 tags: domain
             })
+            response.contentCount = 1;
         }
 
     } catch (error) {
