@@ -16,7 +16,7 @@ app.post('/oauth/token', function(req, res) {
 app.use(express.static('public'));
 
 app.get('/content/:domain/download-url', function(req, res) {
-    const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}?size=800` };
+    const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}` };
     res.send(url);
 });
 
