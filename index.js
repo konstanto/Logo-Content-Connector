@@ -13,6 +13,8 @@ app.post('/oauth/token', function(req, res) {
     res.send(response);
 });
 
+app.use(express.static('public'));
+
 app.get('/content/:domain/download-url', function(req, res) {
     const url = { downloadUrl: `https://logo.clearbit.com/${req.params.domain}?size=800` };
     res.send(url);
@@ -30,9 +32,15 @@ app.get('/content/', async function(req, res) {
 
     if (req.query.search == null) {
         res.send({
-            contentCount: 0,
+            contentCount: 1,
             offset: 0,
-            content: []
+            content: [{
+                id: "https://logoservice.azurewebsites.net/empty.png",
+                mimeType: "image/png",
+                previewUrl: `https://logoservice.azurewebsites.net/empty.png`,
+                name: null,
+                tags: null
+            }]
         })
         return;
     }
